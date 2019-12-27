@@ -42,10 +42,12 @@ class MainActivity : AppCompatActivity() {
 
         trueButton.setOnClickListener {
             checkAnswer(true)
+            disableButtons()
         }
 
         falseButton.setOnClickListener {
             checkAnswer(false)
+            disableButtons()
         }
 
         questionTextView.setOnClickListener {
@@ -62,11 +64,27 @@ class MainActivity : AppCompatActivity() {
             currentIndex = (currentIndex - 1) % questionBank.size
             updateQuestion()
         }
+
+    }
+
+    private fun disableButtons() {
+        trueButton = findViewById(R.id.true_button)
+        falseButton = findViewById(R.id.false_button)
+        trueButton.isEnabled = false
+        falseButton.isEnabled = false
     }
 
     private fun updateQuestion() {
         val questionTextResId = questionBank[currentIndex].textResId
         questionTextView.setText(questionTextResId)
+        enableButtons()
+    }
+
+    private fun enableButtons() {
+        trueButton = findViewById(R.id.true_button)
+        falseButton = findViewById(R.id.false_button)
+        trueButton.isEnabled = true
+        falseButton.isEnabled = true
     }
 
     private fun checkAnswer(userAnswer: Boolean) {
